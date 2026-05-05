@@ -13,9 +13,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - run: pip install -r requirements.txt
-      - run: python main.py
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install --no-cache-dir -r requirements.txt
+          # 确保 yfinance 单独安装（避免缓存问题）
+          pip install --no-cache-dir yfinance --upgrade
+      - name: Run ETF report
+        run: python main.py
         env:
-          # 修改 Secrets 名称映射
           PUSHPLUS_JIJIN: ${{ secrets.PUSHPLUS_JIJIN }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
