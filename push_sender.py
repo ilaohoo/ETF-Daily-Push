@@ -1,22 +1,16 @@
 import requests
 import json
-from config import PUSHPLUS_TOKEN
+from config import PUSHPLUS_JIJIN   # 修改导入名称
 
 
 def send_to_pushplus(title: str, content: str, template: str = "markdown") -> bool:
-    """
-    通过PushPlus推送消息到微信
-    :param title: 消息标题
-    :param content: 消息内容（支持Markdown）
-    :param template: 模板类型，推荐'markdown'
-    """
-    if not PUSHPLUS_TOKEN:
+    if not PUSHPLUS_JIJIN:
         print("❌ PushPlus token 未配置，请检查环境变量或GitHub Secrets")
         return False
 
     url = "https://www.pushplus.plus/send"
     payload = {
-        "token": PUSHPLUS_TOKEN,
+        "token": PUSHPLUS_JIJIN,      # 使用新变量名
         "title": title,
         "content": content,
         "channel": "wechat",
